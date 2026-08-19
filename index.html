@@ -8,7 +8,6 @@
         :root {
             --primary-color: #007bff;
             --whatsapp-color: #25d366;
-            --call-color: #ffc107;
             --text-color: #333;
             --bg-color: #f8f9fa;
         }
@@ -49,15 +48,18 @@
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+            gap: 25px;
             margin-bottom: 40px;
         }
         .service-card {
             background: white;
             padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            border-top: 4px solid var(--primary-color);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            border-top: 5px solid var(--primary-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
             transition: transform 0.3s ease;
         }
         .service-card:hover {
@@ -66,51 +68,104 @@
         .service-card h3 {
             margin-top: 0;
             color: #222;
-            font-size: 18px;
+            font-size: 19px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
         }
         .service-card p {
-            color: #666;
-            font-size: 14px;
-            margin-bottom: 0;
+            color: #555;
+            font-size: 15px;
+            line-height: 1.7;
+            margin-bottom: 20px;
         }
-        /* الأزرار العائمة */
-        .floating-buttons {
+        /* زر الاتصال داخل كارت القسم */
+        .card-call-btn {
+            background-color: #f1f8ff;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            padding: 10px 15px;
+            border-radius: 8px;
+            text-align: center;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: background 0.3s, color 0.3s;
+        }
+        .card-call-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* تأثير الاهتزاز لزر الواتساب */
+        @keyframes shake {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            10% { transform: translate(-1px, -2px) rotate(-1deg); }
+            20% { transform: translate(-3px, 0px) rotate(1deg); }
+            30% { transform: translate(3px, 2px) rotate(0deg); }
+            40% { transform: translate(1px, -1px) rotate(1deg); }
+            50% { transform: translate(-1px, 2px) rotate(-1deg); }
+            60% { transform: translate(-3px, 1px) rotate(0deg); }
+            70% { transform: translate(3px, 1px) rotate(-1deg); }
+            80% { transform: translate(-1px, -1px) rotate(1deg); }
+            90% { transform: translate(1px, 2px) rotate(0deg); }
+            100% { transform: translate(1px, -2px) rotate(-1deg); }
+        }
+
+        /* الأزرار العائمة (واتساب يمين مع اهتزاز، اتصال يسار) */
+        .float-whatsapp {
             position: fixed;
             bottom: 20px;
             right: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            z-index: 1000;
-        }
-        .float-btn {
             width: 60px;
             height: 60px;
+            background-color: var(--whatsapp-color);
+            color: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            z-index: 1000;
             text-decoration: none;
+            animation: shake 1.5s infinite; /* تشغيل الاهتزاز باستمرار */
+        }
+        .float-whatsapp svg {
+            width: 35px;
+            height: 35px;
+            fill: white;
+        }
+
+        .float-call {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-size: 26px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            z-index: 1000;
+            text-decoration: none;
             transition: transform 0.3s;
         }
-        .float-btn:hover {
-            transform: scale(1.1);
-        }
-        .whatsapp-float {
-            background-color: var(--whatsapp-color);
-        }
-        .call-float {
-            background-color: #007bff;
-        }
+        .float-call:hover { transform: scale(1.1); }
+
         footer {
             text-align: center;
             padding: 20px;
             background: #222;
             color: white;
             font-size: 14px;
+            margin-bottom: 60px;
         }
     </style>
 </head>
@@ -122,56 +177,71 @@
     </header>
 
     <div class="container">
-        <h2 class="section-title">خدماتنا الكهربائية المتكاملة</h2>
+        <h2 class="section-title">خدماتنا الكهربائية المتكاملة بالتفصيل</h2>
         
         <div class="services-grid">
             <!-- القسم الأول -->
             <div class="service-card">
-                <h3>1. تأسيس كهرباء المباني (البنية التتحية)</h3>
-                <p>تخطيط وتنفيذ كامل لأعمال التأسيس للمنازل والشقق والفلل الجديدة، مد الخراطيم وتوزيع اللوحات الرئيسية بدقة هندسية تضمن سلامة الأحمال.</p>
+                <div>
+                    <h3>1. تأسيس كهرباء المباني (البنية التحتية)</h3>
+                    <p>نقوم بتنفيذ أعمال التأسيس الكاملة للمنازل، الشقق، والفلل الجديدة بدقة هندسية عالية. يشمل ذلك تخطيط المسارات، تمديد الخراطيم المقاومة للضغط، وتوزيع لوحات التوزيع الرئيسية والفرعية (DB) وتوزيع الأحمال بعناية فائقة لضمان أمان كامل للمنشأة وحماية الأجهزة المستقبلية.</p>
+                </div>
+                <a href="tel:01221404746" class="card-call-btn">📞 اتصل الآن: 01221404746</a>
             </div>
 
             <!-- القسم الثاني -->
             <div class="service-card">
-                <h3>2. التشطيبات الكهربائية والديكورية</h3>
-                <p>لمسات فنية عصرية في تركيب الإضاءات الحديثة، الليد بروفايل (LED Profile)، النجف، وحدات السبوت لايت وإضاءات الأسقف المعلقة.</p>
+                <div>
+                    <h3>2. التشطيبات الكهربائية والديكورية</h3>
+                    <p>نضفي لمسات فنية وعصرية على منزلك من خلال تركيب أحدث وحدات الإضاءة الديكورية. نتخصص في تركيب إضاءات الليد بروفايل (LED Profile)، النجف الفاخر، وحدات الإضاءة المخفية، السبوت لايت، وتوزيع المفاتيح والأفياش بشكل يتناسب مع ديكورات العصر الحديث.</p>
+                </div>
+                <a href="tel:01221404746" class="card-call-btn">📞 اتصل الآن: 01221404746</a>
             </div>
 
             <!-- القسم الثالث -->
             <div class="service-card">
-                <h3>3. صيانة أعطال الطوارئ (24/7)</h3>
-                <p>استجابة سريعة وفورية لحل مشاكل انقطاع التيار، قصر الدائرة (القفلة)، استبدال القواطع التالفة وإصلاح الأعطال المفاجئة في أي وقت.</p>
+                <div>
+                    <h3>3. صيانة أعطال الطوارئ (خدمة 24/7)</h3>
+                    <p>نقدم خدمة استجابة سريعة وفورية لحل جميع أعطال الكهرباء المفاجئة في أي وقت. نتعامل باحترافية مع مشاكل انقطاع التيار المتكرر، حدوث قصر الدائرة (القفلة)، سخونة المفاتيح، وتلف القواطع الرئيسية والفرعية، مع الفحص والإصلاح باستخدام أحدث أجهزة كشف الأعطال.</p>
+                </div>
+                <a href="tel:01221404746" class="card-call-btn">📞 اتصل الآن: 01221404746</a>
             </div>
 
             <!-- القسم الرابع -->
             <div class="service-card">
-                <h3>4. تركيب الأنظمة الذكية (Smart Home)</h3>
-                <p>مواكبة التكنولوجيا الحديثة بتركيب أنظمة التحكم الذكي في الإضاءة والأجهزة عن بُعد، بالإضافة إلى تركيب أنظمة الإنتركم المتطورة.</p>
+                <div>
+                    <h3>4. تركيب الأنظمة الذكية (Smart Home)</h3>
+                    <p>نواكب أحدث تقنيات العصر لراحة منزلك عبر تركيب أنظمة المنزل الذكي (Smart Home). تتيح لك هذه الأنظمة التحكم الكامل في إضاءة منزلك، الأجهزة، والستائر عن بُعد عبر الهاتف المحمول، بالإضافة إلى تركيب الأنظمة الصوتية وأنظمة الإنتركم المرئي المتقدمة.</p>
+                </div>
+                <a href="tel:01221404746" class="card-call-btn">📞 اتصل الآن: 01221404746</a>
             </div>
 
             <!-- القسم الخامس -->
             <div class="service-card">
-                <h3>5. تركيب وحماية كاميرات المراقبة</h3>
-                <p>توريد وتركيب كاميرات المراقبة الأمنية بدقة عالية، مع ضمان استقرار التوصيلات الكهربائية لضمان عمل النظام بكفاءة مستمرة دون انقطاع.</p>
+                <div>
+                    <h3>5. تركيب وحماية كاميرات المراقبة</h3>
+                    <p>نوفر خدمات توريد وتركيب شبكات كاميرات المراقبة الأمنية بدقة عالية لمنازلكم ومنشآتكم. نضمن تمديد الأسلاك الكهربائية وتأمينها بعيداً عن العوامل الجوية، مع ربط النظام بوحدات طاقة مؤقتة (UPS) لضمان استمرار عمل الكاميرات بكفاءة تامة دون انقطاع حتى في حال انقطاع التيار.</p>
+                </div>
+                <a href="tel:01221404746" class="card-call-btn">📞 اتصل الآن: 01221404746</a>
             </div>
 
             <!-- القسم السادس -->
             <div class="service-card">
-                <h3>6. تحديث وتجديد الشبكات القديمة</h3>
-                <p>فحص شامل لشبكات الكهرباء القديمة، استبدال الأسلاك المتهالكة بأخرى مطابقة لمواصفات الأمان لحماية منزلك من مخاطر الماس الكهربائي.</p>
+                <div>
+                    <h3>6. تحديث وتجديد الشبكات القديمة</h3>
+                    <p>إذا كان منزلك قديماً وتعاني من ضعف عام في التيار أو احتراق متكرر للأسلاك، فنحن نقدم خدمة الفحص الشامل وتحديث الشبكات القديمة. نقوم استبدال الأسلاك المتهالكة بأخرى أصلية مطابقة لمواصفات الأمان العالمية لحماية أسرتك ومنزلك من أخطار الماس الكهربائي.</p>
+                </div>
+                <a href="tel:01221404746" class="card-call-btn">📞 اتصل الآن: 01221404746</a>
             </div>
         </div>
     </div>
 
-    <!-- الأزرار العائمة المستديرة (واتساب واتصال) -->
-    <div class="floating-buttons">
-        <a href="https://wa.me/201221404746" class="float-btn whatsapp-float" target="_blank" title="تواصل عبر واتساب">
-            💬
-        </a>
-        <a href="tel:01221404746" class="float-btn call-float" title="اتصل بنا">
-            📞
-        </a>
-    </div>
+    <!-- الأزرار العائمة: واتساب رسمية مع اهتزاز (يمين)، اتصال (يسار) -->
+    <a href="https://wa.me/201221404746" class="float-whatsapp" target="_blank" title="تواصل عبر واتساب">
+        <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+    </a>
+    
+    <a href="tel:01221404746" class="float-call" title="اتصل بنا">📞</a>
 
     <footer>
         <p>جميع الحقوق محفوظة © 2026 - كهربائي منازل الشيخ زايد والقاهرة | هاتف: 01221404746</p>
@@ -179,4 +249,3 @@
 
 </body>
 </html>
-
