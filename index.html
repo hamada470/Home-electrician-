@@ -3,111 +3,335 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>فني كهربائي محترف | تأسيس وتشطيب</title>
+    <title>فني كهربائي منازل الشيخ زايد والقاهرة | خدمات متكاملة</title>
     <style>
-        :root { --primary-color: #007bff; --whatsapp-color: #25d366; }
-        body { font-family: 'Tahoma', sans-serif; background-color: #f4f4f4; margin: 0; padding-bottom: 60px; }
-        .container { max-width: 1000px; margin: auto; padding: 20px; }
-        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .service-card { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-        .slider-container { position: relative; width: 100%; height: 220px; overflow: hidden; }
-        .slide-img { position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.5s ease-in-out; }
-        .slide-img.active { opacity: 1; }
-        .content { padding: 15px; text-align: center; }
-        .btn { display: block; background: var(--primary-color); color: white; padding: 10px; text-decoration: none; border-radius: 5px; margin-top: 10px; font-weight: bold; }
+        :root {
+            --primary-color: #007bff;
+            --whatsapp-color: #25d366;
+            --text-color: #333;
+            --bg-color: #f8f9fa;
+        }
+        body {
+            font-family: 'Tahoma', Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding-top: 45px; /* مساحة لشريط الواتساب العلوي الثابت */
+            padding-bottom: 50px; /* مساحة لشريط الاتصال السفلي الثابت */
+            line-height: 1.8;
+        }
+
+        /* الشريط العلوي الثابت (واتساب - أصفر) */
+        .top-fixed-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #ffc107;
+            color: #000;
+            text-align: center;
+            padding: 8px 10px;
+            font-size: 14px;
+            font-weight: bold;
+            z-index: 1001;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+        .top-fixed-bar svg {
+            width: 18px;
+            height: 18px;
+            fill: #000;
+        }
+
+        /* الشريط السفلي الثابت (اتصال - أصفر) */
+        .bottom-fixed-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #ffc107;
+            color: #000;
+            text-align: center;
+            padding: 8px 10px;
+            font-size: 14px;
+            font-weight: bold;
+            z-index: 1001;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+            text-decoration: none;
+            display: block;
+        }
+
+        header {
+            background: linear-gradient(135deg, #0056b3, var(--primary-color));
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+        header p {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-top: 10px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        .section-title {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        .service-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            border-top: 5px solid var(--primary-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.3s ease;
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+        .service-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .service-content {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .service-card h3 {
+            margin-top: 0;
+            color: #222;
+            font-size: 19px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+        .service-card p {
+            color: #555;
+            font-size: 15px;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+        .card-call-btn {
+            background-color: #f1f8ff;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            padding: 10px 15px;
+            border-radius: 8px;
+            text-align: center;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: background 0.3s, color 0.3s;
+        }
+        .card-call-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* تأثير الاهتزاز */
+        @keyframes shake {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            10% { transform: translate(-1px, -2px) rotate(-1deg); }
+            20% { transform: translate(-3px, 0px) rotate(1deg); }
+            30% { transform: translate(3px, 2px) rotate(0deg); }
+            40% { transform: translate(1px, -1px) rotate(1deg); }
+            50% { transform: translate(-1px, 2px) rotate(-1deg); }
+            60% { transform: translate(-3px, 1px) rotate(0deg); }
+            70% { transform: translate(3px, 1px) rotate(-1deg); }
+            80% { transform: translate(-1px, -1px) rotate(1deg); }
+            90% { transform: translate(1px, 2px) rotate(0deg); }
+            100% { transform: translate(1px, -2px) rotate(-1deg); }
+        }
+
+        /* الأزرار العائمة (تكبير الحجم وترقيتها) */
+        .float-whatsapp {
+            position: fixed;
+            bottom: 55px;
+            right: 20px;
+            width: 68px; /* تم التكبير */
+            height: 68px; /* تم التكبير */
+            background-color: var(--whatsapp-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+            z-index: 1000;
+            text-decoration: none;
+            animation: shake 1.5s infinite;
+        }
+        .float-whatsapp svg {
+            width: 40px; /* تكبير الأيقونة */
+            height: 40px;
+            fill: white;
+        }
+
+        .float-call {
+            position: fixed;
+            bottom: 55px;
+            left: 20px;
+            width: 68px; /* تم التكبير */
+            height: 68px; /* تم التكبير */
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px; /* تكبير الرمز */
+            box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+            z-index: 1000;
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+        .float-call:hover { transform: scale(1.1); }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #222;
+            color: white;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="services-grid">
+    <!-- شريط علوي ثابت (واتساب) -->
+    <a href="https://wa.me/201221404746" class="top-fixed-bar" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+        تواصل معنا سريعاً عبر الواتساب
+    </a>
+
+    <header>
+        <h1>فني كهربائي منازل في الشيخ زايد والقاهرة</h1>
+        <p>خدمات تأسيس، تشطيب، وصيانة طوارئ الكهرباء على مدار الساعة بأعلى معايير الأمان والجودة</p>
+    </header>
+
+    <div class="container">
+        <h2 class="section-title">خدماتنا الكهربائية المتكاملة بالتفصيل</h2>
         
-        <!-- قسم 1: تأسيس البنية التحتية -->
-        <div class="service-card">
-            <div class="slider-container">
-                <img src="https://images.unsplash.com/photo-1544627884-633044a2c589?w=600" class="slide-img active">
-                <img src="https://images.unsplash.com/photo-1596495543069-1748231c6204?w=600" class="slide-img">
-                <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=600" class="slide-img">
-                <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=600" class="slide-img">
-                <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600" class="slide-img">
+        <div class="services-grid">
+            <!-- القسم الأول -->
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=600&q=80" alt="تأسيس كهرباء" class="service-img">
+                <div class="service-content">
+                    <div>
+                        <h3>1. تأسيس كهرباء المباني (البنية التحتية)</h3>
+                        <p>نقوم بتنفيذ أعمال التأسيس الكاملة للمنازل، الشقق، والفلل الجديدة بدقة هندسية عالية. يشمل ذلك تخطيط المسارات، تمديد الخراطيم المقاومة للضغط، وتوزيع لوحات التوزيع الرئيسية والفرعية (DB) وتوزيع الأحمال بعناية فائقة لضمان أمان كامل للمنشأة وحماية الأجهزة المستقبلية.</p>
+                    </div>
+                    <a href="tel:01221404746" class="card-call-btn">📞 اتصل الآن: 01221404746</a>
+                </div>
             </div>
-            <div class="content"><h3>تأسيس الكهرباء</h3><a href="tel:01221404746" class="btn">اتصل الآن</a></div>
-        </div>
 
-        <!-- قسم 2: لوحات التوزيع والقواطع -->
-        <div class="service-card">
-            <div class="slider-container">
-                <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600" class="slide-img active">
-                <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=600" class="slide-img">
-                <img src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=600" class="slide-img">
-                <img src="https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?w=600" class="slide-img">
-                <img src="https://images.unsplash.com/photo-1558346490-a72e53ae2d4f?w=600" class="slide-img">
+            <!-- القسم الثاني -->
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1540932239986-30128078f3c5?auto=format&fit=crop&w=600&q=80" alt="تشطيبات ديكورية" class="service-img">
+                <div class="service-content">
+                    <div>
+                        <h3>2. التشطيبات الكهربائية والديكورية</h3>
+                        <p>نضفي لمسات فنية وعصرية على منزلك من خلال تركيب أحدث وحدات الإضاءة الديكورية. نتخصص في تركيب إضاءات الليد بروفايل (LED Profile)، النجف الفاخر، وحدات الإضاءة المخفية، السبوت لايت، وتوزيع المفاتيح والأفياش بشكل يتناسب مع ديكورات العصر الحديث.</p>
+                    </div>
+                    <a href="tel:01221404746" class="card-call-btn">📞 اتصل الآن: 01221404746</a>
+                </div>
             </div>
-            <div class="content"><h3>لوحات التوزيع</h3><a href="tel:01221404746" class="btn">اتصل الآن</a></div>
-        </div>
 
-        <!-- قسم 3: تركيب الإضاءة والنجف -->
-        <div class="service-card">
-            <div class="slider-container">
-                <img src="https://images.unsplash.com/photo-1540932239986-30128078f3c5?w=600" class="slide-img active">
-                <img src="https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?w=600" class="slide-img">
-                <img src="https://images.unsplash.com/photo-1565183997392-2f6f122e5912?w=600" class="slide-img">
-                <img src="https://images.unsplash.com/photo-1507089947368-19c1da9775ae?w=600" class="slide-img">
-                <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=600" class="slide-img">
+            <!-- القسم الثالث -->
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80" alt="صيانة أعطال" class="service-img">
+                <div class="service-content">
+                    <div>
+                        <h3>3. صيانة أعطال الطوارئ (خدمة 24/7)</h3>
+                        <p>نقدم خدمة استجابة سريعة وفورية لحل جميع أعطال الكهرباء المفاجئة في أي وقت. نتعامل باحترافية مع مشاكل انقطاع التيار المتكرر، حدوث قصر الدائرة (القفلة)، سخونة المفاتيح، وتلف القواطع الرئيسية والفرعية، مع الفحص والإصلاح باستخدام أحدث أجهزة كشف الأعطال.</p>
+                    </div>
+                    <a href="tel:01221404746" class="card-call-btn">📞 اتصل الآن: 01221404746</a>
+                </div>
             </div>
-            <div class="content"><h3>إضاءة وديكور</h3><a href="tel:01221404746" class="btn">اتصل الآن</a></div>
-        </div>
 
-        <!-- قسم 4: أدوات القياس والفحص -->
-        <div class="service-card">
-            <div class="slider-container">
-                <img src="https://images.unsplash.com/photo-1517420704952-d9f39e95b43e?w=600" class="slide-img active">
-                <img src="https://images.unsplash.com/photo-1581092335397-9583fe92d232?w=600" class="slide-img">
-                <img src="https://images.unsplash.com/photo-1541888946425-d0fbb18fefbc?w=600" class="slide-img">
-                <img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=600" class="slide-img">
-                <img src="https://images.unsplash.com/photo-1513828583688-c52646db42da?w=600" class="slide-img">
+            <!-- القسم الرابع -->
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&w=600&q=80" alt="أنظمة ذكية" class="service-img">
+                <div class="service-content">
+                    <div>
+                        <h3>4. تركيب الأنظمة الذكية (Smart Home)</h3>
+                        <p>نواكب أحدث تقنيات العصر لراحة منزلك عبر تركيب أنظمة المنزل الذكي (Smart Home). تتيح لك هذه الأنظمة التحكم الكامل في إضاءة منزلك، الأجهزة، والستائر عن بُعد عبر الهاتف المحمول، بالإضافة إلى تركيب الأنظمة الصوتية وأنظمة الإنتركم المرئي المتقدمة.</p>
+                    </div>
+                    <a href="tel:01221404746" class="card-call-btn">📞 اتصل الآن: 01221404746</a>
+                </div>
             </div>
-            <div class="content"><h3>صيانة وفحص</h3><a href="tel:01221404746" class="btn">اتصل الآن</a></div>
-        </div>
 
-        <!-- قسم 5: تشطيبات المفاتيح والأفياش -->
-        <div class="service-card">
-            <div class="slider-container">
-                <img src="https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=600" class="slide-img active">
-                <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600" class="slide-img">
-                <img src="https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=600" class="slide-img">
-                <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600" class="slide-img">
-                <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600" class="slide-img">
+            <!-- القسم الخامس -->
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1557597774-9d273605dfa9?auto=format&fit=crop&w=600&q=80" alt="كاميرات مراقبة" class="service-img">
+                <div class="service-content">
+                    <div>
+                        <h3>5. تركيب وحماية كاميرات المراقبة</h3>
+                        <p>نوفر خدمات توريد وتركيب شبكات كاميرات المراقبة الأمنية بدقة عالية لمنازلكم ومنشآتكم. نضمن تمديد الأسلاك الكهربائية وتأمينها بعيداً عن العوامل الجوية، مع ربط النظام بوحدات طاقة مؤقتة (UPS) لضمان استمرار عمل الكاميرات بكفاءة تامة دون انقطاع حتى في حال انقطاع التيار.</p>
+                    </div>
+                    <a href="tel:01221404746" class="card-call-btn">📞 اتصل الآن: 01221404746</a>
+                </div>
             </div>
-            <div class="content"><h3>تشطيبات نهائية</h3><a href="tel:01221404746" class="btn">اتصل الآن</a></div>
-        </div>
 
-        <!-- قسم 6: تمديدات داخل الجدران -->
-        <div class="service-card">
-            <div class="slider-container">
-                <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?w=600" class="slide-img active">
-                <img src="https://images.unsplash.com/photo-1508873696983-2df5c92064c8?w=600" class="slide-img">
-                <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=600" class="slide-img">
-                <img src="https://images.unsplash.com/photo-1584438784894-089d6a62b8fa?w=600" class="slide-img">
-                <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?w=600" class="slide-img">
+            <!-- القسم السادس -->
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1513828583688-c52646db42da?auto=format&fit=crop&w=600&q=80" alt="تحديث شبكات" class="service-img">
+                <div class="service-content">
+                    <div>
+                        <h3>6. تحديث وتجديد الشبكات القديمة</h3>
+                        <p>إذا كان منزلك قديماً وتعاني من ضعف عام في التيار أو احتراق متكرر للأسلاك، فنحن نقدم خدمة الفحص الشامل وتحديث الشبكات القديمة. نقوم استبدال الأسلاك المتهالكة بأخرى أصلية مطابقة لمواصفات الأمان العالمية لحماية أسرتك ومنزلك من أخطار الماس الكهربائي.</p>
+                    </div>
+                    <a href="tel:01221404746" class="card-call-btn">📞 اتصل الآن: 01221404746</a>
+                </div>
             </div>
-            <div class="content"><h3>تمديدات احترافية</h3><a href="tel:01221404746" class="btn">اتصل الآن</a></div>
         </div>
-
     </div>
-</div>
 
-<script>
-    document.querySelectorAll('.slider-container').forEach(slider => {
-        let slides = slider.querySelectorAll('.slide-img');
-        let i = 0;
-        setInterval(() => {
-            slides[i].classList.remove('active');
-            i = (i + 1) % slides.length;
-            slides[i].classList.add('active');
-        }, 1000);
-    });
-</script>
+    <!-- الأزرار العائمة (بحجم أضخم وأوضح) -->
+    <a href="https://wa.me/201221404746" class="float-whatsapp" target="_blank" title="تواصل عبر واتساب">
+        <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+    </a>
+    
+    <a href="tel:01221404746" class="float-call" title="اتصل بنا">📞</a>
+
+    <!-- شريط سفلي ثابت (اتصال) -->
+    <a href="tel:01221404746" class="bottom-fixed-bar">
+        📞 اضغط هنا للاتصال المباشر: 01221404746
+    </a>
+
+    <footer>
+        <p>جميع الحقوق محفوظة © 2026 - كهربائي منازل الشيخ زايد والقاهرة</p>
+    </footer>
 
 </body>
 </html>
