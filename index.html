@@ -2,108 +2,85 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>فني كهرباء وكاميرات</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خدمات الكهرباء الاحترافية</title>
     <style>
-        body { font-family: Tahoma, sans-serif; background: #f4f4f4; margin: 0; padding: 20px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; max-width: 1200px; margin: auto; }
-        .card { background: white; border-radius: 12px; padding: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .slider { position: relative; height: 200px; overflow: hidden; border-radius: 8px; }
-        .slider img { position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.5s; }
+        :root {
+            --primary: #2c3e50;
+            --secondary: #e67e22;
+            --accent: #3498db;
+            --light: #f4f7f6;
+        }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--light); margin: 0; padding: 20px; }
+        
+        /* القسم العام */
+        .container { max-width: 1100px; margin: auto; }
+        .header { text-align: center; margin-bottom: 40px; }
+        .header h1 { color: var(--primary); font-size: 2.5rem; margin-bottom: 10px; }
+        
+        /* الشبكة والبطاقات */
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        .card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.08); transition: transform 0.3s; }
+        .card:hover { transform: translateY(-10px); }
+        
+        /* السلايدر الاحترافي */
+        .slider { position: relative; height: 220px; }
+        .slider img { position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.8s ease-in-out; }
         .slider img.active { opacity: 1; }
-        h3 { color: #333; text-align: center; }
-        .btn { display: block; background: #007bff; color: white; text-align: center; padding: 10px; border-radius: 5px; text-decoration: none; margin-top: 10px; font-weight: bold; }
+        
+        /* محتوى البطاقة */
+        .card-body { padding: 20px; text-align: center; }
+        .card-body h3 { color: var(--primary); margin: 0 0 15px; font-size: 1.4rem; }
+        .btn-call { display: inline-block; background: var(--secondary); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; transition: background 0.3s; }
+        .btn-call:hover { background: #d35400; }
     </style>
 </head>
 <body>
 
-<div class="grid">
-    <!-- القسم 1: تأسيس كهرباء -->
-    <div class="card">
-        <div class="slider">
-            <img src="https://images.unsplash.com/photo-1544627884-633044a2c589" class="active">
-            <img src="https://images.unsplash.com/photo-1596495543069-1748231c6204">
-            <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e">
-            <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758">
-            <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158">
-        </div>
-        <h3>تأسيس كهرباء</h3>
-        <a href="tel:01221404746" class="btn">اتصل الآن</a>
+<div class="container">
+    <div class="header">
+        <h1>خدماتنا الكهربائية المتكاملة</h1>
+        <p>جودة، أمان، واحترافية في كل تفصيلة</p>
     </div>
 
-    <!-- القسم 2: تشطيبات نهائية -->
-    <div class="card">
-        <div class="slider">
-            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31" class="active">
-            <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d">
-            <img src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4">
-            <img src="https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e">
-            <img src="https://images.unsplash.com/photo-1558346490-a72e53ae2d4f">
-        </div>
-        <h3>تشطيبات كهربائية</h3>
-        <a href="tel:01221404746" class="btn">اتصل الآن</a>
-    </div>
-
-    <!-- القسم 3: لوحات وتحكم -->
-    <div class="card">
-        <div class="slider">
-            <img src="https://images.unsplash.com/photo-1540932239986-30128078f3c5" class="active">
-            <img src="https://images.unsplash.com/photo-1513506003901-1e6a229e2d15">
-            <img src="https://images.unsplash.com/photo-1565183997392-2f6f122e5912">
-            <img src="https://images.unsplash.com/photo-1507089947368-19c1da9775ae">
-            <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6">
-        </div>
-        <h3>لوحات توزيع</h3>
-        <a href="tel:01221404746" class="btn">اتصل الآن</a>
-    </div>
-
-    <!-- القسم 4: كاميرات مراقبة -->
-    <div class="card">
-        <div class="slider">
-            <img src="https://images.unsplash.com/photo-1557597774-9d273605dfa9" class="active">
-            <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d">
-            <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5">
-            <img src="https://images.unsplash.com/photo-1584438784894-089d6a62b8fa">
-            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3">
-        </div>
-        <h3>كاميرات مراقبة</h3>
-        <a href="tel:01221404746" class="btn">اتصل الآن</a>
-    </div>
-
-    <!-- القسم 5: إضاءة وأدوات -->
-    <div class="card">
-        <div class="slider">
-            <img src="https://images.unsplash.com/photo-1517420704952-d9f39e95b43e" class="active">
-            <img src="https://images.unsplash.com/photo-1581092335397-9583fe92d232">
-            <img src="https://images.unsplash.com/photo-1541888946425-d0fbb18fefbc">
-            <img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e">
-            <img src="https://images.unsplash.com/photo-1513828583688-c52646db42da">
-        </div>
-        <h3>صيانة وفحص</h3>
-        <a href="tel:01221404746" class="btn">اتصل الآن</a>
-    </div>
-
-    <!-- القسم 6: تمديدات داخلية -->
-    <div class="card">
-        <div class="slider">
-            <img src="https://images.unsplash.com/photo-1544717305-2782549b5136" class="active">
-            <img src="https://images.unsplash.com/photo-1508873696983-2df5c92064c8">
-            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750">
-            <img src="https://images.unsplash.com/photo-1583847268964-b28dc8f51f92">
-            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab">
-        </div>
-        <h3>تمديدات احترافية</h3>
-        <a href="tel:01221404746" class="btn">اتصل الآن</a>
+    <div class="services-grid">
+        <!-- تكرار البطاقة لـ 6 أقسام، كل قسم بـ 5 صور خاصة -->
+        <script>
+            const images = [
+                ["https://images.unsplash.com/photo-1544627884-633044a2c589", "https://images.unsplash.com/photo-1596495543069-1748231c6204", "https://images.unsplash.com/photo-1621905251189-08b45d6a269e", "https://images.unsplash.com/photo-1581092160607-ee22621dd758", "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158"],
+                ["https://images.unsplash.com/photo-1558494949-ef010cbdcc31", "https://images.unsplash.com/photo-1504384308090-c894fdcc538d", "https://images.unsplash.com/photo-1621905252507-b35492cc74b4", "https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e", "https://images.unsplash.com/photo-1558346490-a72e53ae2d4f"],
+                ["https://images.unsplash.com/photo-1540932239986-30128078f3c5", "https://images.unsplash.com/photo-1513506003901-1e6a229e2d15", "https://images.unsplash.com/photo-1565183997392-2f6f122e5912", "https://images.unsplash.com/photo-1507089947368-19c1da9775ae", "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6"],
+                ["https://images.unsplash.com/photo-1557597774-9d273605dfa9", "https://images.unsplash.com/photo-1563245372-f21724e3856d", "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5", "https://images.unsplash.com/photo-1584438784894-089d6a62b8fa", "https://images.unsplash.com/photo-1516321318423-f06f85e504b3"],
+                ["https://images.unsplash.com/photo-1517420704952-d9f39e95b43e", "https://images.unsplash.com/photo-1581092335397-9583fe92d232", "https://images.unsplash.com/photo-1541888946425-d0fbb18fefbc", "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e", "https://images.unsplash.com/photo-1513828583688-c52646db42da"],
+                ["https://images.unsplash.com/photo-1544717305-2782549b5136", "https://images.unsplash.com/photo-1508873696983-2df5c92064c8", "https://images.unsplash.com/photo-1512917774080-9991f1c4c750", "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92", "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab"]
+            ];
+            const titles = ["تأسيس البنية التحتية", "لوحات التحكم والقواطع", "تركيبات الإضاءة والديكور", "كاميرات المراقبة", "صيانة الأعطال الفورية", "تمديدات المنازل الذكية"];
+            
+            images.forEach((group, index) => {
+                document.write(`
+                    <div class="card">
+                        <div class="slider">
+                            ${group.map((img, i) => `<img src="${img}" class="${i===0 ? 'active' : ''}">`).join('')}
+                        </div>
+                        <div class="card-body">
+                            <h3>${titles[index]}</h3>
+                            <a href="tel:01221404746" class="btn-call">اتصل بنا الآن</a>
+                        </div>
+                    </div>
+                `);
+            });
+        </script>
     </div>
 </div>
 
 <script>
     document.querySelectorAll('.slider').forEach(s => {
         let imgs = s.querySelectorAll('img');
-        let idx = 0;
+        let i = 0;
         setInterval(() => {
-            imgs[idx].classList.remove('active');
-            idx = (idx + 1) % imgs.length;
-            imgs[idx].classList.add('active');
+            imgs[i].classList.remove('active');
+            i = (i + 1) % imgs.length;
+            imgs[i].classList.add('active');
         }, 1000);
     });
 </script>
